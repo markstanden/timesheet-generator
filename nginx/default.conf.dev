@@ -1,5 +1,5 @@
-upstream client {
-  server client:3000;
+upstream mobile-client {
+  server mobile-client:3000;
 }
 
 upstream api {
@@ -9,14 +9,14 @@ upstream api {
 server {
   listen 80;
   location /socksjs-node {
-    proxy_pass http://client;
+    proxy_pass http://mobile-client;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "Upgrade";
   }
 
   location / {
-    proxy_pass http://client;
+    proxy_pass http://mobile-client;
   }
 
   location /api {
