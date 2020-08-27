@@ -3,11 +3,11 @@ const app = express()
 
 const apiPort: number = 5000
 
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Root Test Message...')
 })
 
-app.get('/api/test', (req, res) => {
+app.get('/test', (req, res) => {
   res.send('/test Test Message...')
 })
 
