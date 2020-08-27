@@ -7,7 +7,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.dev
     ports:
-      - '3000:80'
+      - '8080:80'
     depends_on:
       - api
       - mobile-client
@@ -19,13 +19,35 @@ services:
     volumes:
       - /app/node_modules
       - ./api:/app
+    expose:
+      - '5000'
+    ports:
+      - 5000:5000
 
   mobile-client:
     stdin_open: true
-
     build:
       context: ./mobile-client
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.web.dev
     volumes:
       - /app/node_modules
       - ./mobile-client:/app
+    environment:
+      - REACT_NATIVE_PACKAGER_HOSTNAME=localhost
+    expose:
+      - '19006'
+    ports:
+      - 19006:19006
+
+  web-client:
+    stdin_open: true
+    build:
+      context: ./web-client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./web-client:/app
+    expose:
+      - '3000'
+    ports:
+      - 3000:3000
